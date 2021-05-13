@@ -6,7 +6,8 @@ import { ModifiComponent } from '../../componentes/modifi/modifi.component';
 import { CreaComponent } from '../../componentes/crea/crea.component';
 import { DeleteComponent } from '../../componentes/delete/delete.component';
 import { FormComponent } from '../../componentes/form/form.component';
-
+import { HttpClientModule }  from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     Item2Component,
@@ -18,7 +19,9 @@ import { FormComponent } from '../../componentes/form/form.component';
 
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    FormsModule
   ],
   exports:[
     Item2Component,
