@@ -9,6 +9,7 @@ import { PedidoComponent } from '../../componentes/pedido/pedido.component';
 import { HttpClientModule }  from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ConexionService } from '../../services/conexion.service';
+import {ObjToArrayPipe} from '../../ObjToArray.pipe';
 @NgModule({
   declarations: [
     ItemComponent,
@@ -16,13 +17,15 @@ import { ConexionService } from '../../services/conexion.service';
     TodoComponent,
     VegeComponent,
     CarneComponent,
-    PedidoComponent
+    PedidoComponent,
+    ObjToArrayPipe
+   
   ],
   imports: [
     CommonModule,
     HttpClientModule,
-    FormsModule
-    
+    FormsModule,
+      
   ],
   exports: [
     ItemComponent,
@@ -31,6 +34,7 @@ import { ConexionService } from '../../services/conexion.service';
     VegeComponent,
     CarneComponent,
     PedidoComponent
+    
   ]
 
 })
