@@ -3,14 +3,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParamsOptions } from '@
 import { Observable, throwError} from 'rxjs';
 import { retry,catchError} from 'rxjs/operators';
 //import { fromEventPattern } from 'rxjs';
-import { Item1 } from '../../app/models/item';
+import { Item1 } from '../models/item';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConexionService {
 
-url = 'http://localhost:5000/items/'; // direccion api rest del node
+url = 'http://localhost:5000/items'; // direccion api rest del node
 
 constructor(private httpClient: HttpClient) { }
 

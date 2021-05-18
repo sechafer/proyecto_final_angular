@@ -12,15 +12,22 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 })
 export class ItemComponent implements OnInit {
   item = {} as Item1;
- items: Item1[];
-
+  //items: Item1[];
+  
+ items:any = {};
+//data: any = [];
+//myObjList: any = [];
+  items2: any = {};
   constructor(private itemService: ConexionService ) {}
 
 
   ngOnInit() {
     this.getItems();
+   // this.getItems2();
   }
-  
+  /* ngAfterViewInit() {
+   
+  } */
   // defini se um carro será criado ou atualizado
   saveItem(form: NgForm) {
     if (this.item.id !== undefined) {
@@ -35,10 +42,48 @@ export class ItemComponent implements OnInit {
   }
 
   // Chama o serviço para obtém todos os carros
+  /* public async getItems2(){
+    const promise = await this.itemService.getItems().toPromise();     
+    this.items2 = promise;
+    console.log (this.items2);
+  } */
   getItems() {
+
     this.itemService.getItems().subscribe((items: Item1[]) => {
       this.items = items;
-    });
+      console.log(this.items);
+ /*      this.data = JSON.stringify(this.items);
+
+      this.data = this.data.replace('{"items":[', '{');
+      this.data = this.data.replaceAll('{', '[');
+      this.data = this.data.replaceAll('}', ']'); */
+
+      //this.data = this.data.replace('{"":[', ''{"items":['');
+   /*    this.data = this.data.replace('{"items":[', '{');
+      this.data = this.data.replace(']}', '}');
+      this.data = this.data.replaceAll('"id"', 'id ');
+      this.data = this.data.replaceAll('"ITEM_NAME"', ' ITEM_NAME ');
+      this.data = this.data.replaceAll('"DESCRIPCION"', ' DESCRIPCION ');
+      this.data = this.data.replaceAll('"TIPO_COMIDA"', ' TIPO_COMIDA ');
+      this.data = this.data.replaceAll('"PRECIO"', ' PRECIO ');
+      this.data = this.data.replaceAll('"FOTO_URL"', ' FOTO_URL ');
+      this.data = this.data.replaceAll('"createdAt"', ' createdAt ');
+      this.data = this.data.replaceAll('"updatedAt"', ' updatedAt ');  */
+
+      //this.data = this.data.replaceAll('\"', '\'');
+      //this.data = this.data.replaceAll('id', '\nid');
+      //this.data = this.data.replaceAll('"id"', '\n id');
+     // this.data = this.data.replaceAll( ":", ": ");
+     //this.myObjList = new Set();
+     //this.myObjList.add(this.data);
+
+     //this.data= JSON.parse(this.data);
+     
+ 
+      
+
+
+       });
   }
 
   // deleta um carro
@@ -62,4 +107,5 @@ export class ItemComponent implements OnInit {
   
 
   //ngOnInit(): void {  }
+  
 }
