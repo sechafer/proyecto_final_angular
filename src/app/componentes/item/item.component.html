@@ -36,7 +36,7 @@
                </ng-template>                  
                 
                 </td> -->
-                <td >{{ item.TIPO_COMIDA }}</td>
+                <td >{{ item.TIPO_COMIDA ? "normal":"vegetarina"  }} </td>
                 <td>{{ item.PRECIO | currency:'BRL'}}</td>
                 <td class= "d-inline-block text-truncate" style="max-width: 20vw;" ><a href="item.FOTO_URL" target="_blank" >{{ item.FOTO_URL }}</a></td>  
                 <td>{{ item.createdAt | date:'d MMM , y, h:mm a'}}</td> 
@@ -92,13 +92,13 @@
                       <label for="TIPO_COMIDA">TIPO DE COMIDA</label>
                   
                           <div class="form-check form-check-inline" >
-                                  <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 0 checked name="flexRadioDefault" id="flexRadioDefault1" #TIPO_COMIDA="ngModel" required class="form-control">
+                                  <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 0 checked name="flexRadioDefault" id="flexRadioDefault1" #TIPO_COMIDA="ngModel" required >
                                   <label class="form-check-label" for="TIPO_COMIDA">
                                   Normal
                                   </label>
                           </div>
                         <div class="form-check form-check-inline" >
-                            <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 1 name="flexRadioDefault"  id="flexRadioDefault2" name="TIPO_COMIDA" #TIPO_COMIDA="ngModel" required class="form-control" >
+                            <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 1 name="flexRadioDefault"  id="flexRadioDefault2" name="TIPO_COMIDA" #TIPO_COMIDA="ngModel" required  >
                             <label class="form-check-label" for="TIPO_COMIDA1">
                             Vegetariana
                             </label>  
