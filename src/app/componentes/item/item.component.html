@@ -3,6 +3,7 @@
       <li class="breadcrumb-item active" aria-current="page"><h1 class="font-weight-bold; text-center " >Menu</h1></li>
     </ol>
   </nav>
+   
   
   <div class="container">
       <div class="card list-car">
@@ -27,15 +28,7 @@
                <td>{{ item.id}} </td>
                <td>{{ item.ITEM_NAME }}</td>
                 <td >{{ item.DESCRIPCION }}</td>
-                <!-- <td ngIf = "item?.TIPO_COMIDA == TRUE; then ifBlock else elseBlock ">
-                <ng-template #ifBlock>
-                   <h4>Normal</h4>
-                </ng-template>
-                <ng-template #elseBlock>
-                  <h4>Vegetariana</h4>
-               </ng-template>                  
-                
-                </td> -->
+             
                 <td >{{ item.TIPO_COMIDA ? "Vegetariana":"Normal"  }} </td>
                 <td>{{ item.PRECIO | currency:'BRL'}}</td>
                 <td class= "d-inline-block text-truncate" style="max-width: 20vw;" ><a href="item.FOTO_URL" target="_blank" >{{ item.FOTO_URL }}</a></td>  

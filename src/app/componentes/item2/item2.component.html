@@ -1,1 +1,52 @@
-<p>item2 works!</p>
+<div class = "" id="carta1">
+    <div>
+        <button type="button" class="btn btn-primary">Admin</button> 
+    </div>
+    
+        <h2 class="p-3 m-2">Carta de menu</h2>
+        <div>
+            <label for="">Tipos de comida:</label>
+            <button type="button" class="btn btn-info m-1">Todas</button> 
+            <button type="button" class="btn btn-warning m-1">Normal</button> 
+            <button type="button" class="btn btn-success m-1">Vegetariana</button> 
+            
+    
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-danger m-2 float-start" style="position: absolute; z-index: 999;">Finalizar pedido</button> 
+        </div>
+
+        <div class="container">
+        <div class=" d-md-flex p-3  bd-highlight justify-content-between ">
+            <article class="shadow border-dark rounded-3 p-3 m-2 " *ngFor="let item of items.items ">
+            <div class="card" style="width: 18rem;">
+                <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
+                <div class="card-body">
+                  <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
+                  <p class="card-text">{{ item.DESCRIPCION }}</p>
+                  <form>
+                    <div class="mb-3">
+                      
+                    <div class="mb-3 form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                   </div>
+                  </form>
+                </div>
+            </div>
+              
+            </article>  
+
+
+        </div>
+
+
+
+            
+        </div>
+
+    
+</div>
