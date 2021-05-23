@@ -1,0 +1,112 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page"><h1 class="font-weight-bold; text-center " >Menu</h1></li>
+    </ol>
+  </nav>
+   
+  
+  <div class="container">
+      <div class="card list-car">
+      <h5 class="card-header">Lista de platos</h5>
+      <div class="card-body">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NOMBRE DEL ITEM</th>
+                <th scope="col">DESCRIPCION</th>
+                <th scope="col">TIPO DE COMIDA</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">FOTO URL</th>
+                <th scope="col">FECHA DE CREACION </th>
+                <th scope="col">FECHA DE ACTUALIZACION</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items.items ">
+                                                           
+               <td>{{ item.id}} </td>
+               <td>{{ item.ITEM_NAME }}</td>
+                <td >{{ item.DESCRIPCION }}</td>
+             
+                <td >{{ item.TIPO_COMIDA ? "Vegetariana":"Normal"  }} </td>
+                <td>{{ item.PRECIO | currency:'BRL'}}</td>
+                <td class= "d-inline-block text-truncate" style="max-width: 20vw;" ><a href="item.FOTO_URL" target="_blank" >{{ item.FOTO_URL }}</a></td>  
+                <td>{{ item.createdAt | date:'d MMM , y, h:mm a'}}</td> 
+                <td>{{ item.updatedAt | date:'d MMM , y, h:mm a'  }}</td>
+                <td>
+                  <button type="button" class="btn btn-warning btn-sm" (click)="editItem(item)">Editar</button>
+                  <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteItem(item)">Borrar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+           
+          
+      </div>
+    </div>
+  
+    
+  
+    <div class="card add-car">
+        <h5 class="card-header">Adicionar/Atctualizar plato</h5>
+        <div class="card-body">
+            <form id="add-form" (ngSubmit)="f.form.valid && saveItem(f)" #f="ngForm" novalidate>
+              <div class="form-group">
+                  <label for="ITEM_NAME">ITEM NAME</label>
+                  <input type="text" [(ngModel)]="item.ITEM_NAME" id="ITEM_NAME" name="ITEM_NAME" #ITEM_NAME="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && ITEM_NAME.invalid }" placeholder="Coloque el nombredel plato">
+                  <div *ngIf="f.submitted && ITEM_NAME.invalid" class="invalid-feedback">
+                      <div *ngIf="ITEM_NAME.errors.required">Plato es obligatorio</div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="DESCRIPCION">DESCRIPCION</label>
+                  <input type="text" [(ngModel)]="item.DESCRIPCION" id="DESCRIPCION" name="DESCRIPCION" #DESCRIPCION="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && DESCRIPCION.invalid }" placeholder="Coloque la descripcion">
+                  <div *ngIf="f.submitted && DESCRIPCION.invalid" class="invalid-feedback">
+                      <div *ngIf="DESCRIPCION.errors.required">Descripcion es obligatoria</div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="PRECIO">PRECIO</label>
+                  <input type="number" [(ngModel)]="item.PRECIO" id="PRECIO" name="PRECIO" #PRECIO="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && PRECIO.invalid }" placeholder="Marque el precio">
+                  <div *ngIf="f.submitted && PRECIO.invalid" class="invalid-feedback">
+                      <div *ngIf="PRECIO.errors.required">Precio es Obligatorio</div>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="FOTO_URL">FOTO URL</label>
+                <input type="text" [(ngModel)]="item.FOTO_URL" id="FOTO_URL" name="FOTO_URL" #FOTO_URL="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && FOTO_URL.invalid }" placeholder="El url de la foto">
+                <div *ngIf="f.submitted && FOTO_URL.invalid" class="invalid-feedback">
+                    <div *ngIf="FOTO_URL.errors.required">La url es obligatoria</div>
+                </div>
+              </div>
+                  <div class="form-group">
+                      <label for="TIPO_COMIDA">TIPO DE COMIDA</label>
+                  
+                          <div class="form-check form-check-inline" >
+                                  <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 0 checked name="flexRadioDefault" id="flexRadioDefault1" #TIPO_COMIDA="ngModel" required >
+                                  <label class="form-check-label" for="TIPO_COMIDA">
+                                  Normal
+                                  </label>
+                          </div>
+                        <div class="form-check form-check-inline" >
+                            <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 1 name="flexRadioDefault"  id="flexRadioDefault2" name="TIPO_COMIDA" #TIPO_COMIDA="ngModel" required  >
+                            <label class="form-check-label" for="TIPO_COMIDA1">
+                            Vegetariana
+                            </label>  
+                        </div>
+                    </div>  
+              
+             
+
+
+                      
+             <div class="form-group">               
+              <button type="submit" class="btn btn-primary btn-add-car">Salvar</button>
+              <button type="reset" class="btn btn-secondary btn-add-car" (click)="cleanForm(f)">Cancelar</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
