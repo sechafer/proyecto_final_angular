@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule }  from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ConexionService } from '../app/conexion.service';
 import { AppComponent } from './app.component';
 import { ItemComponent } from './item/item.component';
 import { Item2Component } from './item2/item2.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -12,7 +16,10 @@ import { Item2Component } from './item2/item2.component';
     Item2Component
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    NgbModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

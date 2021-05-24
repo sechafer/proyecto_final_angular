@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ConexionService} from '../conexion.service';
 import { Item1 } from '../models/item';
 import {NgForm} from '@angular/forms';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { Action } from 'rxjs/internal/scheduler/Action';
-//mport {ObjToArrayPipe from  '../../ObjToArray.pipe';
+
 
 @Component({
   selector: 'app-item',
@@ -11,6 +12,10 @@ import { Action } from 'rxjs/internal/scheduler/Action';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
+  showMe:boolean= false;
+  normal:boolean= true;
+  vegetariana:boolean= true;
+  completa:boolean= true;
   item = {} as Item1;
   //items: Item1[];
   
@@ -25,8 +30,44 @@ export class ItemComponent implements OnInit {
     this.getItems();
    // this.getItems2();
   }
+
+  hidden()
+  {
+    this.showMe=!this.showMe;
+  }
+
+carne()
+{
+  this.normal=true;
+  this.vegetariana=false;
+  this.completa= false;
+
+}
+
+verde()
+{
+  this.normal=false;
+  this.vegetariana=true;
+  this.completa= false;
+
+
+}
+
+todas()
+{
+  this.normal=true;
+  this.vegetariana=true;
+  this.completa= true;
+
+}
+
+
   /* ngAfterViewInit() {
    
+
+
+
+
   } */
   // defini se um carro será criado ou atualizado
   saveItem(form: NgForm) {
@@ -52,31 +93,7 @@ export class ItemComponent implements OnInit {
     this.itemService.getItems().subscribe((items: Item1[]) => {
       this.items = items;
       console.log(this.items);
- /*      this.data = JSON.stringify(this.items);
-      this.data = this.data.replace('{"items":[', '{');
-      this.data = this.data.replaceAll('{', '[');
-      this.data = this.data.replaceAll('}', ']'); */
-
-      //this.data = this.data.replace('{"":[', ''{"items":['');
-   /*    this.data = this.data.replace('{"items":[', '{');
-      this.data = this.data.replace(']}', '}');
-      this.data = this.data.replaceAll('"id"', 'id ');
-      this.data = this.data.replaceAll('"ITEM_NAME"', ' ITEM_NAME ');
-      this.data = this.data.replaceAll('"DESCRIPCION"', ' DESCRIPCION ');
-      this.data = this.data.replaceAll('"TIPO_COMIDA"', ' TIPO_COMIDA ');
-      this.data = this.data.replaceAll('"PRECIO"', ' PRECIO ');
-      this.data = this.data.replaceAll('"FOTO_URL"', ' FOTO_URL ');
-      this.data = this.data.replaceAll('"createdAt"', ' createdAt ');
-      this.data = this.data.replaceAll('"updatedAt"', ' updatedAt ');  */
-
-      //this.data = this.data.replaceAll('\"', '\'');
-      //this.data = this.data.replaceAll('id', '\nid');
-      //this.data = this.data.replaceAll('"id"', '\n id');
-     // this.data = this.data.replaceAll( ":", ": ");
-     //this.myObjList = new Set();
-     //this.myObjList.add(this.data);
-
-     //this.data= JSON.parse(this.data);
+ 
      
  
       
@@ -85,14 +102,14 @@ export class ItemComponent implements OnInit {
        });
   }
 
-  // deleta um carro
+  // deleta um plato
   deleteItem(item: Item1) {
     this.itemService.deleteItem(item).subscribe(() => {
       this.getItems();
     });
   }
 
-  // copia o carro para ser editado.
+  // copia o plato para ser editado.
   editItem(item: Item1) {
     this.item = { ...item };
   }

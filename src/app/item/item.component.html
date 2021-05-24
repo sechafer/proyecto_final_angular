@@ -1,112 +1,299 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page"><h1 class="font-weight-bold; text-center " >Menu</h1></li>
+      <li class="breadcrumb-item active" aria-current="page"><h1 class="font-weight-bold; text-center " >{{!showMe ? "Menu":"Registro de Menu"}}</h1></li>
     </ol>
   </nav>
-   
-  
-  <div class="container">
-      <div class="card list-car">
-      <h5 class="card-header">Lista de platos</h5>
-      <div class="card-body">
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">NOMBRE DEL ITEM</th>
-                <th scope="col">DESCRIPCION</th>
-                <th scope="col">TIPO DE COMIDA</th>
-                <th scope="col">PRECIO</th>
-                <th scope="col">FOTO URL</th>
-                <th scope="col">FECHA DE CREACION </th>
-                <th scope="col">FECHA DE ACTUALIZACION</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of items.items ">
-                                                           
-               <td>{{ item.id}} </td>
-               <td>{{ item.ITEM_NAME }}</td>
-                <td >{{ item.DESCRIPCION }}</td>
-             
-                <td >{{ item.TIPO_COMIDA ? "Vegetariana":"Normal"  }} </td>
-                <td>{{ item.PRECIO | currency:'BRL'}}</td>
-                <td class= "d-inline-block text-truncate" style="max-width: 20vw;" ><a href="item.FOTO_URL" target="_blank" >{{ item.FOTO_URL }}</a></td>  
-                <td>{{ item.createdAt | date:'d MMM , y, h:mm a'}}</td> 
-                <td>{{ item.updatedAt | date:'d MMM , y, h:mm a'  }}</td>
-                <td>
-                  <button type="button" class="btn btn-warning btn-sm" (click)="editItem(item)">Editar</button>
-                  <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteItem(item)">Borrar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          
-           
-          
-      </div>
-    </div>
-  
+
+  <div>
+    <button id="btn"class="btn btn-success btn-block" (click)="hidden()" >{{!showMe ? "Admin":"Menu"}}</button>
+
+  </div>
+ 
+ <div *ngIf=!showMe>
+  <div class = "" id="carta1">
+     
+        <h2 class="p-3 m-2">Carta de menu</h2>
+        <div>
+            <label for="">Tipos de comida:</label>
+            <button type="button" class="btn btn-info m-1" (click)="todas()">Todas</button> 
+            <button type="button" class="btn btn-warning m-1"(click)="carne()">Normal</button> 
+            <button type="button" class="btn btn-success m-1"(click)="verde()">Vegetariana</button> 
+            
     
-  
-    <div class="card add-car">
-        <h5 class="card-header">Adicionar/Atctualizar plato</h5>
-        <div class="card-body">
-            <form id="add-form" (ngSubmit)="f.form.valid && saveItem(f)" #f="ngForm" novalidate>
-              <div class="form-group">
-                  <label for="ITEM_NAME">ITEM NAME</label>
-                  <input type="text" [(ngModel)]="item.ITEM_NAME" id="ITEM_NAME" name="ITEM_NAME" #ITEM_NAME="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && ITEM_NAME.invalid }" placeholder="Coloque el nombredel plato">
-                  <div *ngIf="f.submitted && ITEM_NAME.invalid" class="invalid-feedback">
-                      <div *ngIf="ITEM_NAME.errors.required">Plato es obligatorio</div>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label for="DESCRIPCION">DESCRIPCION</label>
-                  <input type="text" [(ngModel)]="item.DESCRIPCION" id="DESCRIPCION" name="DESCRIPCION" #DESCRIPCION="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && DESCRIPCION.invalid }" placeholder="Coloque la descripcion">
-                  <div *ngIf="f.submitted && DESCRIPCION.invalid" class="invalid-feedback">
-                      <div *ngIf="DESCRIPCION.errors.required">Descripcion es obligatoria</div>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label for="PRECIO">PRECIO</label>
-                  <input type="number" [(ngModel)]="item.PRECIO" id="PRECIO" name="PRECIO" #PRECIO="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && PRECIO.invalid }" placeholder="Marque el precio">
-                  <div *ngIf="f.submitted && PRECIO.invalid" class="invalid-feedback">
-                      <div *ngIf="PRECIO.errors.required">Precio es Obligatorio</div>
-                  </div>
-              </div>
-              <div class="form-group">
-                <label for="FOTO_URL">FOTO URL</label>
-                <input type="text" [(ngModel)]="item.FOTO_URL" id="FOTO_URL" name="FOTO_URL" #FOTO_URL="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && FOTO_URL.invalid }" placeholder="El url de la foto">
-                <div *ngIf="f.submitted && FOTO_URL.invalid" class="invalid-feedback">
-                    <div *ngIf="FOTO_URL.errors.required">La url es obligatoria</div>
-                </div>
-              </div>
-                  <div class="form-group">
-                      <label for="TIPO_COMIDA">TIPO DE COMIDA</label>
-                  
-                          <div class="form-check form-check-inline" >
-                                  <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 0 checked name="flexRadioDefault" id="flexRadioDefault1" #TIPO_COMIDA="ngModel" required >
-                                  <label class="form-check-label" for="TIPO_COMIDA">
-                                  Normal
-                                  </label>
-                          </div>
-                        <div class="form-check form-check-inline" >
-                            <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 1 name="flexRadioDefault"  id="flexRadioDefault2" name="TIPO_COMIDA" #TIPO_COMIDA="ngModel" required  >
-                            <label class="form-check-label" for="TIPO_COMIDA1">
-                            Vegetariana
-                            </label>  
-                        </div>
-                    </div>  
-              
-             
-
-
-                      
-             <div class="form-group">               
-              <button type="submit" class="btn btn-primary btn-add-car">Salvar</button>
-              <button type="reset" class="btn btn-secondary btn-add-car" (click)="cleanForm(f)">Cancelar</button>
-              </div>
-            </form>
         </div>
-      </div>
-    </div>
+
+        <div>
+            <button type="button" class="btn btn-danger m-2 float-start" style="position: absolute; z-index: 999;">Finalizar pedido</button> 
+        </div>
+
+        <div class="container">
+        <div class=" d-md-flex p-3  bd-highlight justify-content-between ">
+            <article class="shadow border-dark rounded-3 p-3 m-2 " *ngFor="let item of items.items ">
+            
+            
+              <div *ngIf="normal && item.TIPO_COMIDA"class="card" style="width: 18rem;">
+                <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
+                <div class="card-body">
+                  <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
+                  <p class="card-text">{{ item.DESCRIPCION }}</p>
+                  <form>
+                    <div class="mb-3">
+                      
+                    <div class="mb-3 form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                   </div>
+                  </form>
+                </div>
+            </div>
+              
+
+            <div *ngIf="vegetariana && !item.TIPO_COMIDA"class="card" style="width: 18rem;">
+              <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
+              <div class="card-body">
+                <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
+                <p class="card-text">{{ item.DESCRIPCION }}</p>
+                <form>
+                  <div class="mb-3">
+                    
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                 </div>
+                </form>
+              </div>
+          </div>
+
+
+          <div *ngIf=" completa && (( normal && item.TIPO_COMIDA ) || (vegetariana && !item.TIPO_COMIDA))"class="card" style="width: 18rem;">
+            <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
+            <div class="card-body">
+              <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
+              <p class="card-text">{{ item.DESCRIPCION }}</p>
+              <form>
+                <div class="mb-3">
+                  
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+               </div>
+              </form>
+            </div>
+        </div>
+
+
+
+
+
+            </article>  
+
+
+        </div>
+
+
+
+            
+        </div>
+
+    
+</div>
+
+ </div> 
+<div *ngIf="showMe">
+                        <!-- <div class="text-center px-xl-3">
+                          <button id="btn"class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#plato-form-modal">Crear Plato</button>
+                        </div> -->
+
+                        <!-- Modal Create User -->
+                      <!--   <div class="modal fade" role="dialog" tabindex="-1" id="plato-form-modal">
+                          <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Crear Plato
+                                  
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                              </div>
+                              <div id="menu" class="container">                                
+                                <form id="add-form" (ngSubmit)="f.form.valid && saveItem(f)" #f="ngForm" novalidate">
+                                    
+                                    <div class="form-group">
+                                        <label for="ITEM_NAME">Item Name</label>
+                                        <input type="text" class="form-control" id="ITEM_NAME" name="ITEM_NAME" #DESCRIPCION="ngModel" [(ngModel)]="item.ITEM_NAME">
+                                        <span class="error "  aria-label="Error" title="{{ this.error.ITEM_NAME }}" *ngIf="error.ITEM_NAME">
+                                            <i class="bi bi-exclamation-circle-fill "></i>
+                                        </span>
+                                    </div>          
+                                    <div class="form-group">
+                                        <label for="DESCRIPCION">DESCRIPCION</label>
+                                        <input type="text" class="form-control" id="DESCRIPCION" name="DESCRIPCION" #DESCRIPCION="ngModel"  [(ngModel)]="item.DESCRIPCION">
+                                        <span class="error "  aria-label="Error" title="{{ this.error.DESCRIPCION }}" *ngIf="error.DESCRIPCION.">
+                                          <i class="bi bi-exclamation-circle-fill "></i>
+                                      </span>
+                                    </div>                  
+                                    <div class="form-group">
+                                        <label for="PRECIO">Precio:</label>
+                                        <input type="number" class="form-control" id="PRECIO" name="PRECIO" #PRECIO="ngModel" [(ngModel)]="item.PRECIO">
+                                    </div>          
+                                    <div class="form-group">
+                                        <label for="FOTO_URL">Foto Url:</label>
+                                        <input type="text" class="form-control" id="FOTO_URL" name="FOTO_URL" #FOTO_URL="ngModel" [(ngModel)]="item.FOTO_URL">
+                                        <span class="error "  aria-label="Error" title="{{ this.error.FOTO_URL }}" *ngIf="error.FOTO_URL">
+                                          <i class="bi bi-exclamation-circle-fill "></i>
+                                      </span>
+                                    </div>
+
+                                  <div class="form-group">
+                                    <label for="TIPO_COMIDA">TIPO DE COMIDA :</label>
+                                        <label for="TIPO_COMIDA">Normal :</label>        
+                                        <input type="radio" class="form-control" id="TIPO_COMIDA" name="TIPO_COMIDA" value= 0 checked #TIPO_COMIDA="ngModel" [(ngModel)]="item.TIPO_COMIDA">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="TIPO_COMIDA">Vegetariana :</label>
+                                        <input type="radio" class="form-control" id="TIPO_COMIDA" name="TIPO_COMIDA" value= 1 #TIPO_COMIDA="ngModel" [(ngModel)]="item.TIPO_COMIDA">
+                                    </div>           
+                                  
+                                    <div class="row text-center ">
+                                        <div class="col-6">                        
+                                            <button type="submit" class="btn btn-default btn-lg" >Salvar</button>
+                                        </div> 
+                                        <div class="col-6">   
+                                          <a href="#" class="pull-right btn btn-primary  btn-lg" data-dismiss="modal" >Cerrar</a>
+                                      </div>                              
+                                    </div>
+                                    <div *ngIf="successfully" class="row text-center ">
+                                        <div class="alert alert-success" role="alert">
+                                          Registro realizado!
+                                        </div>
+                                    </div>          
+                                </form>
+                                <br/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        -->
+
+
+
+
+
+
+
+                        
+                        
+                        <div class="container">
+                            <div class="card list-car">
+                            <h5 class="card-header">Lista de platos</h5>
+                            <div class="card-body">
+                              <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">ID</th>
+                                      <th scope="col">NOMBRE DEL ITEM</th>
+                                      <th scope="col">DESCRIPCION</th>
+                                      <th scope="col">TIPO DE COMIDA</th>
+                                      <th scope="col">PRECIO</th>
+                                      <th scope="col">FOTO URL</th>
+                                      <th scope="col">FECHA DE CREACION </th>
+                                      <th scope="col">FECHA DE ACTUALIZACION</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let item of items.items ">
+                                                                                
+                                    <td>{{ item.id}} </td>
+                                    <td>{{ item.ITEM_NAME }}</td>
+                                      <td >{{ item.DESCRIPCION }}</td>
+                                  
+                                      <td >{{ item.TIPO_COMIDA ? "Vegetariana":"Normal"  }} </td>
+                                      <td>{{ item.PRECIO | currency:'BRL'}}</td>
+                                      <td class= "d-inline-block text-truncate" style="max-width: 20vw;" ><a href="item.FOTO_URL" target="_blank" >{{ item.FOTO_URL }}</a></td>  
+                                      <td>{{ item.createdAt | date:'d MMM , y, h:mm a'}}</td> 
+                                      <td>{{ item.updatedAt | date:'d MMM , y, h:mm a'  }}</td>
+                                      <td>
+                                        <button type="button" class="btn btn-warning btn-sm" (click)="editItem(item)">Editar</button>
+                                        <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteItem(item)">Borrar</button>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                
+                                
+                                
+                            </div>
+                          </div>
+                        
+                          
+                        
+                          <div class="card add-car">
+                              <h5 class="card-header">Adicionar/Atctualizar plato</h5>
+                              <div class="card-body">
+                                  <form id="add-form" (ngSubmit)="f.form.valid && saveItem(f)" #f="ngForm" novalidate>
+                                    <div class="form-group">
+                                        <label for="ITEM_NAME">ITEM NAME</label>
+                                        <input type="text" [(ngModel)]="item.ITEM_NAME" id="ITEM_NAME" name="ITEM_NAME" #ITEM_NAME="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && ITEM_NAME.invalid }" placeholder="Coloque el nombredel plato">
+                                        <div *ngIf="f.submitted && ITEM_NAME.invalid" class="invalid-feedback">
+                                            <div *ngIf="ITEM_NAME?.errors?.required">Plato es obligatorio</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="DESCRIPCION">DESCRIPCION</label>
+                                        <input type="text" [(ngModel)]="item.DESCRIPCION" id="DESCRIPCION" name="DESCRIPCION" #DESCRIPCION="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && DESCRIPCION.invalid }" placeholder="Coloque la descripcion">
+                                        <div *ngIf="f.submitted && DESCRIPCION.invalid" class="invalid-feedback">
+                                            <div *ngIf="DESCRIPCION?.errors?.required">Descripcion es obligatoria</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="PRECIO">PRECIO</label>
+                                        <input type="number" [(ngModel)]="item.PRECIO" id="PRECIO" name="PRECIO" #PRECIO="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && PRECIO.invalid }" placeholder="Marque el precio">
+                                        <div *ngIf="f.submitted && PRECIO.invalid" class="invalid-feedback">
+                                            <div *ngIf="PRECIO?.errors?.required">Precio es Obligatorio</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="FOTO_URL">FOTO URL</label>
+                                      <input type="text" [(ngModel)]="item.FOTO_URL" id="FOTO_URL" name="FOTO_URL" #FOTO_URL="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && FOTO_URL.invalid }" placeholder="El url de la foto">
+                                      <div *ngIf="f.submitted && FOTO_URL.invalid" class="invalid-feedback">
+                                          <div *ngIf="FOTO_URL?.errors?.required">La url es obligatoria</div>
+                                      </div>
+                                    </div>
+                                        <div class="form-group">
+                                            <label for="TIPO_COMIDA">TIPO DE COMIDA</label>
+                                        
+                                                <div class="form-check form-check-inline" >
+                                                        <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 0 checked name="flexRadioDefault" id="flexRadioDefault1" #TIPO_COMIDA="ngModel" required >
+                                                        <label class="form-check-label" for="TIPO_COMIDA">
+                                                        Normal
+                                                        </label>
+                                                </div>
+                                              <div class="form-check form-check-inline" >
+                                                  <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 1   id="flexRadioDefault2" name="TIPO_COMIDA" #TIPO_COMIDA="ngModel" required  >
+                                                  <label class="form-check-label" for="TIPO_COMIDA1">
+                                                  Vegetariana
+                                                  </label>  
+                                              </div>
+                                          </div>  
+                                    
+                                  
+
+
+                                            
+                                  <div class="form-group">               
+                                    <button type="submit" class="btn btn-primary btn-add-car">Salvar</button>
+                                    <button type="reset" class="btn btn-secondary btn-add-car" (click)="cleanForm(f)">Cancelar</button>
+                                    </div>
+                                  </form>
+                              </div>
+                            </div>
+                          </div>
+ </div>
