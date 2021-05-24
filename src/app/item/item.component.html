@@ -69,7 +69,7 @@
           </div>
 
 
-          <div *ngIf=" completa && (( normal && item.TIPO_COMIDA ) || (vegetariana && !item.TIPO_COMIDA))"class="card" style="width: 18rem;">
+          <div *ngIf=" completa && (( normal && item.TIPO_COMIDA ) && (vegetariana && !item.TIPO_COMIDA))"class="card" style="width: 18rem;">
             <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
             <div class="card-body">
               <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
