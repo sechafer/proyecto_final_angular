@@ -1,13 +1,68 @@
-<nav aria-label="breadcrumb">
+<nav class="m-2" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page"><h1 class="font-weight-bold; text-center " >{{!showMe ? "Menu":"Registro de Menu"}}</h1></li>
+      <li class="breadcrumb-item active" aria-current="page"><h1  class="m-2 font-weight-bold; text-center " >{{!showMe ? "Menu":"Registro de Menu"}}</h1></li>
     </ol>
   </nav>
 
-  <div>
-    <button id="btn"class="btn btn-success btn-block" (click)="hidden()" >{{!showMe ? "Admin":"Menu"}}</button>
+  <div class=" p-2 m-2"> 
+    <button id="btn"class="  btn btn-success btn-block"  data-bs-toggle="modal" data-bs-target="#change-modo" >{{!showMe ? "Admin":"Menu"}}</button>
+ </div>
 
+ 
+ <div class="modal fade" id="change-modo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cambiar vista: {{!showMe ? "Administrador":"Menu"}}   </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="titulo">
+          <form id="add-form2" (ngSubmit)="pass.form.valid " #pass="ngForm" novalidate>
+            <label for="Password">Coloque su contraseña:</label>
+            <input type="password" name="password" id="password"  ([ngModel])="password" >
+            <div class="form-group">               
+              <button type="submit" class="btn btn-primary"    (click)="hidden()">Confirmar</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>  
+            </div>
+
+
+          </form>
+          
+          <!-- <form id="add-form" (ngSubmit)=".form.valid && saveItem(f)" #pass="ngForm" novalidate>
+            <div class="form-group">
+              
+                <label for="PASSWORD">Coloque su password</label>
+                <input type="text" [(ngModel)]="PASSWORD" id="PASSWORD" name="PASSWORD" #PASSWORD="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': pass.submitted && PASSWORD.invalid }" placeholder="Coloque el su password">
+                
+            </div>
+                          
+          <div class="form-group">               
+            <button type="submit" class="btn btn-primary btn-add-car" (click)="hidden()">Confirmar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>  
+          </div>
+          </form> --> 
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        
+        
+      </div>
+    </div>
   </div>
+</div> 
+
+
+
+
+  
+
+    
+
+
+
+
  
  <div *ngIf=!showMe>
   <div class = "" id="carta1">
@@ -16,8 +71,8 @@
         <div>
             <label for="">Tipos de comida:</label>
             <button type="button" class="btn btn-info m-1" (click)="todas()">Todas</button> 
-            <button type="button" class="btn btn-warning m-1"(click)="carne()">Normal</button> 
-            <button type="button" class="btn btn-success m-1"(click)="verde()">Vegetariana</button> 
+            <button type="button" class="btn btn-success  m-1"(click)="carne()">Vegetariana</button> 
+            <button type="button" class="btn btn-warning m-1"(click)="verde()">Normal</button> 
             
     
         </div>
@@ -26,16 +81,18 @@
             <button type="button" class="btn btn-danger m-2 float-start" style="position: absolute; z-index: 999;">Finalizar pedido</button> 
         </div>
 
-        <div class="container">
-        <div class=" d-md-flex p-3  bd-highlight justify-content-between ">
-            <article class="shadow border-dark rounded-3 p-3 m-2 " *ngFor="let item of items.items ">
+        <div class="container d-md-flex p-3">
+        <div class=" d-md-flex p-3  bd-highlight justify-content-between " *ngFor="let item of items.items ">
+            <article *ngIf="(normal && item.TIPO_COMIDA)" class="  shadow border-dark rounded-3 p-3 m-2 " >
             
             
-              <div *ngIf="normal && item.TIPO_COMIDA"class="card" style="width: 18rem;">
+              <div class="card" style="width: 18rem;">
                 <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
                 <div class="card-body">
                   <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
                   <p class="card-text">{{ item.DESCRIPCION }}</p>
+                  <p class="card-text"><b>{{ item.PRECIO | currency:'BRL' }}</b></p>
+                  
                   <form>
                     <div class="mb-3">
                       
@@ -48,13 +105,17 @@
                   </form>
                 </div>
             </div>
-              
+          </article>  
 
-            <div *ngIf="vegetariana && !item.TIPO_COMIDA"class="card" style="width: 18rem;">
+              
+            <article *ngIf="vegetariana && !item.TIPO_COMIDA" class=" shadow border-dark rounded-3 p-3 m-2 " >
+            
+            <div class="card" style="width: 18rem;">
               <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
               <div class="card-body">
                 <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
                 <p class="card-text">{{ item.DESCRIPCION }}</p>
+                <p class="card-text"><b>{{ item.PRECIO | currency:'BRL' }}</b></p>
                 <form>
                   <div class="mb-3">
                     
@@ -67,13 +128,16 @@
                 </form>
               </div>
           </div>
+        </article>  
 
-
-          <div *ngIf=" completa && (( normal && item.TIPO_COMIDA ) && (vegetariana && !item.TIPO_COMIDA))"class="card" style="width: 18rem;">
+        <article *ngIf=" completa && (( normal && item.TIPO_COMIDA ) && (vegetariana && !item.TIPO_COMIDA))" class="  shadow border-dark rounded-3 p-3 m-2 " >
+           
+          <div class="card" style="width: 18rem;">
             <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
             <div class="card-body">
               <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
               <p class="card-text">{{ item.DESCRIPCION }}</p>
+              <p class="card-text"><b>{{ item.PRECIO | currency:'BRL' }}</b></p>
               <form>
                 <div class="mb-3">
                   
@@ -106,83 +170,189 @@
 
  </div> 
 <div *ngIf="showMe">
-                        <!-- <div class="text-center px-xl-3">
-                          <button id="btn"class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#plato-form-modal">Crear Plato</button>
-                        </div> -->
+                        
 
-                        <!-- Modal Create User -->
+
+
+
+                             <!-- Button trigger modal -->
+                             <div class="text-center px-xl-3">                        
+    <button  id="btn" type="button" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#plato-form-modal">
+      Crear Plato
+    </button>
+  </div>
+
+    <!-- Modal -->
+   <div class="modal fade" id="plato-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Creacion de nuevo plato</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="titulo">
+              
+              <form id="add-form" (ngSubmit)="f.form.valid && saveItem(f)" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="ITEM_NAME">ITEM NAME</label>
+                    <input type="text" [(ngModel)]="item.ITEM_NAME" id="ITEM_NAME" name="ITEM_NAME" #ITEM_NAME="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && ITEM_NAME.invalid }" placeholder="Coloque el nombredel plato">
+                    <div *ngIf="f.submitted && ITEM_NAME.invalid" class="invalid-feedback">
+                        <div *ngIf="ITEM_NAME?.errors?.required">Plato es obligatorio</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="DESCRIPCION">DESCRIPCION</label>
+                    <input type="text" [(ngModel)]="item.DESCRIPCION" id="DESCRIPCION" name="DESCRIPCION" #DESCRIPCION="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && DESCRIPCION.invalid }" placeholder="Coloque la descripcion">
+                    <div *ngIf="f.submitted && DESCRIPCION.invalid" class="invalid-feedback">
+                        <div *ngIf="DESCRIPCION?.errors?.required">Descripcion es obligatoria</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="PRECIO">PRECIO</label>
+                    <input type="number" [(ngModel)]="item.PRECIO" id="PRECIO" name="PRECIO" #PRECIO="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && PRECIO.invalid }" placeholder="Marque el precio">
+                    <div *ngIf="f.submitted && PRECIO.invalid" class="invalid-feedback">
+                        <div *ngIf="PRECIO?.errors?.required">Precio es Obligatorio</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="FOTO_URL">FOTO URL</label>
+                  <input type="text" [(ngModel)]="item.FOTO_URL" id="FOTO_URL" name="FOTO_URL" #FOTO_URL="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && FOTO_URL.invalid }" placeholder="El url de la foto">
+                  <div *ngIf="f.submitted && FOTO_URL.invalid" class="invalid-feedback">
+                      <div *ngIf="FOTO_URL?.errors?.required">La url es obligatoria</div>
+                  </div>
+                </div>
+                    <div class="form-group">
+                        <label for="TIPO_COMIDA">TIPO DE COMIDA</label>
+                    
+                            <div class="form-check form-check-inline" >
+                                    <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 0 checked name="flexRadioDefault" id="flexRadioDefault1" #TIPO_COMIDA="ngModel" required >
+                                    <label class="form-check-label" for="TIPO_COMIDA">
+                                    Normal
+                                    </label>
+                            </div>
+                          <div class="form-check form-check-inline" >
+                              <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 1   id="flexRadioDefault2" name="TIPO_COMIDA" #TIPO_COMIDA="ngModel" required  >
+                              <label class="form-check-label" for="TIPO_COMIDA1">
+                              Vegetariana
+                              </label>  
+                          </div>
+                      </div>  
+                
+              
+
+
+                        
+              <div class="form-group">               
+                <button type="submit" class="btn btn-primary btn-add-car">Salvar</button>
+                <button type="reset" class="btn btn-warning btn-add-car" (click)="cleanForm(f)">Limpiar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  
+              </div>
+              </form>
+
+
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            
+            
+          </div>
+        </div>
+      </div>
+    </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!-- <!-- Modal Create User -->
                       <!--   <div class="modal fade" role="dialog" tabindex="-1" id="plato-form-modal">
                           <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title">Crear Plato
-                                  
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal">
-                                  <span aria-hidden="true">×</span>
-                                </button>
-                              </div>
+                                  <div class="modal-header">
+                                        <h5 class="modal-title">Crear Plato
+                                          
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                                  </div>
                               <div id="menu" class="container">                                
-                                <form id="add-form" (ngSubmit)="f.form.valid && saveItem(f)" #f="ngForm" novalidate">
-                                    
-                                    <div class="form-group">
-                                        <label for="ITEM_NAME">Item Name</label>
-                                        <input type="text" class="form-control" id="ITEM_NAME" name="ITEM_NAME" #DESCRIPCION="ngModel" [(ngModel)]="item.ITEM_NAME">
-                                        <span class="error "  aria-label="Error" title="{{ this.error.ITEM_NAME }}" *ngIf="error.ITEM_NAME">
-                                            <i class="bi bi-exclamation-circle-fill "></i>
-                                        </span>
-                                    </div>          
-                                    <div class="form-group">
-                                        <label for="DESCRIPCION">DESCRIPCION</label>
-                                        <input type="text" class="form-control" id="DESCRIPCION" name="DESCRIPCION" #DESCRIPCION="ngModel"  [(ngModel)]="item.DESCRIPCION">
-                                        <span class="error "  aria-label="Error" title="{{ this.error.DESCRIPCION }}" *ngIf="error.DESCRIPCION.">
-                                          <i class="bi bi-exclamation-circle-fill "></i>
-                                      </span>
-                                    </div>                  
-                                    <div class="form-group">
-                                        <label for="PRECIO">Precio:</label>
-                                        <input type="number" class="form-control" id="PRECIO" name="PRECIO" #PRECIO="ngModel" [(ngModel)]="item.PRECIO">
-                                    </div>          
-                                    <div class="form-group">
-                                        <label for="FOTO_URL">Foto Url:</label>
-                                        <input type="text" class="form-control" id="FOTO_URL" name="FOTO_URL" #FOTO_URL="ngModel" [(ngModel)]="item.FOTO_URL">
-                                        <span class="error "  aria-label="Error" title="{{ this.error.FOTO_URL }}" *ngIf="error.FOTO_URL">
-                                          <i class="bi bi-exclamation-circle-fill "></i>
-                                      </span>
-                                    </div>
-
+                                <form id="add-form" (ngSubmit)="f.form.valid && saveItem(f)" #f="ngForm" novalidate>
                                   <div class="form-group">
-                                    <label for="TIPO_COMIDA">TIPO DE COMIDA :</label>
-                                        <label for="TIPO_COMIDA">Normal :</label>        
-                                        <input type="radio" class="form-control" id="TIPO_COMIDA" name="TIPO_COMIDA" value= 0 checked #TIPO_COMIDA="ngModel" [(ngModel)]="item.TIPO_COMIDA">
+                                      <label for="ITEM_NAME">ITEM NAME</label>
+                                      <input type="text" [(ngModel)]="item.ITEM_NAME" id="ITEM_NAME" name="ITEM_NAME" #ITEM_NAME="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && ITEM_NAME.invalid }" placeholder="Coloque el nombredel plato">
+                                      <div *ngIf="f.submitted && ITEM_NAME.invalid" class="invalid-feedback">
+                                          <div *ngIf="ITEM_NAME?.errors?.required">Plato es obligatorio</div>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="DESCRIPCION">DESCRIPCION</label>
+                                      <input type="text" [(ngModel)]="item.DESCRIPCION" id="DESCRIPCION" name="DESCRIPCION" #DESCRIPCION="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && DESCRIPCION.invalid }" placeholder="Coloque la descripcion">
+                                      <div *ngIf="f.submitted && DESCRIPCION.invalid" class="invalid-feedback">
+                                          <div *ngIf="DESCRIPCION?.errors?.required">Descripcion es obligatoria</div>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="PRECIO">PRECIO</label>
+                                      <input type="number" [(ngModel)]="item.PRECIO" id="PRECIO" name="PRECIO" #PRECIO="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && PRECIO.invalid }" placeholder="Marque el precio">
+                                      <div *ngIf="f.submitted && PRECIO.invalid" class="invalid-feedback">
+                                          <div *ngIf="PRECIO?.errors?.required">Precio es Obligatorio</div>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="FOTO_URL">FOTO URL</label>
+                                    <input type="text" [(ngModel)]="item.FOTO_URL" id="FOTO_URL" name="FOTO_URL" #FOTO_URL="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && FOTO_URL.invalid }" placeholder="El url de la foto">
+                                    <div *ngIf="f.submitted && FOTO_URL.invalid" class="invalid-feedback">
+                                        <div *ngIf="FOTO_URL?.errors?.required">La url es obligatoria</div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="TIPO_COMIDA">Vegetariana :</label>
-                                        <input type="radio" class="form-control" id="TIPO_COMIDA" name="TIPO_COMIDA" value= 1 #TIPO_COMIDA="ngModel" [(ngModel)]="item.TIPO_COMIDA">
-                                    </div>           
+                                  </div>
+                                      <div class="form-group">
+                                          <label for="TIPO_COMIDA">TIPO DE COMIDA</label>
+                                      
+                                              <div class="form-check form-check-inline" >
+                                                      <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 0 checked name="flexRadioDefault" id="flexRadioDefault1" #TIPO_COMIDA="ngModel" required >
+                                                      <label class="form-check-label" for="TIPO_COMIDA">
+                                                      Normal
+                                                      </label>
+                                              </div>
+                                            <div class="form-check form-check-inline" >
+                                                <input class="form-check-input" type="radio" [(ngModel)]="item.TIPO_COMIDA" value= 1   id="flexRadioDefault2" name="TIPO_COMIDA" #TIPO_COMIDA="ngModel" required  >
+                                                <label class="form-check-label" for="TIPO_COMIDA1">
+                                                Vegetariana
+                                                </label>  
+                                            </div>
+                                        </div>  
                                   
-                                    <div class="row text-center ">
-                                        <div class="col-6">                        
-                                            <button type="submit" class="btn btn-default btn-lg" >Salvar</button>
-                                        </div> 
-                                        <div class="col-6">   
-                                          <a href="#" class="pull-right btn btn-primary  btn-lg" data-dismiss="modal" >Cerrar</a>
-                                      </div>                              
-                                    </div>
-                                    <div *ngIf="successfully" class="row text-center ">
-                                        <div class="alert alert-success" role="alert">
-                                          Registro realizado!
-                                        </div>
-                                    </div>          
+                                
+
+
+                                          
+                                <div class="form-group">               
+                                  <button type="submit" class="btn btn-primary btn-add-car">Salvar</button>
+                                  <button type="reset" class="btn btn-secondary btn-add-car" (click)="cleanForm(f)">Cancelar</button>
+                                  </div>
                                 </form>
-                                <br/>
+                                
                               </div>
                             </div>
                           </div>
-                        </div>
-                        -->
-
+                        
+                      </div>
+  -->
 
 
 
@@ -221,7 +391,7 @@
                                       <td>{{ item.createdAt | date:'d MMM , y, h:mm a'}}</td> 
                                       <td>{{ item.updatedAt | date:'d MMM , y, h:mm a'  }}</td>
                                       <td>
-                                        <button type="button" class="btn btn-warning btn-sm" (click)="editItem(item)">Editar</button>
+                                        <button type="button" class="btn btn-warning btn-sm" (click)="editItem(item)" data-bs-toggle="modal" data-bs-target="#plato-form-modal" >Editar</button>
                                         <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteItem(item)">Borrar</button>
                                       </td>
                                     </tr>
@@ -235,8 +405,8 @@
                         
                           
                         
-                          <div class="card add-car">
-                              <h5 class="card-header">Adicionar/Atctualizar plato</h5>
+                         <!--  <div class="card add-car">
+                              <h5 class="card-header">Adicionar/Actualizar plato</h5>
                               <div class="card-body">
                                   <form id="add-form" (ngSubmit)="f.form.valid && saveItem(f)" #f="ngForm" novalidate>
                                     <div class="form-group">
@@ -294,6 +464,6 @@
                                     </div>
                                   </form>
                               </div>
-                            </div>
+                            </div> -->
                           </div>
  </div>

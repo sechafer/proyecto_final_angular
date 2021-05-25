@@ -12,18 +12,21 @@ import { Action } from 'rxjs/internal/scheduler/Action';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
-  showMe:boolean= false;
+   showMe:boolean= false;
   normal:boolean= true;
   vegetariana:boolean= true;
   completa:boolean= true;
   item = {} as Item1;
+  public password: string | undefined;
   //items: Item1[];
   
  items:any = {};
 //data: any = [];
 //myObjList: any = [];
   items2: any = {};
+
   constructor(private itemService: ConexionService ) {}
+
 
 
   ngOnInit() {
@@ -33,7 +36,12 @@ export class ItemComponent implements OnInit {
 
   hidden()
   {
-    this.showMe=!this.showMe;
+    if (this.password === 'batata'){
+      this.showMe=!this.showMe;
+    }
+    else
+    this.showMe=!!this.showMe;
+   
   }
 
 carne()
