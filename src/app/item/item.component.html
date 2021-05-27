@@ -1,13 +1,17 @@
-<nav class="m-2" aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page"><h1  class="m-2 font-weight-bold; text-center " >{{!showMe ? "Menu":"Registro de Menu"}}</h1></li>
-    </ol>
-  </nav>
+<div class=" p-2 m-2 alin"> 
+  <button id="btn"class="  btn btn-secondary btn-block btn-sm"  data-bs-toggle="modal" data-bs-target="#change-modo" >{{!showMe ? "Admin":"Menu"}}</button>
+</div>
 
-  <div class=" p-2 m-2"> 
-    <button id="btn"class="  btn btn-success btn-block"  data-bs-toggle="modal" data-bs-target="#change-modo" >{{!showMe ? "Admin":"Menu"}}</button>
- </div>
+  
+  <div class="align-items-center">
+    <div class="text-center" >
+      <img class="rounded"  style="width: 220px; height:150px ; " src="../../assets/menu.jpg" alt="menu">
+    </div>
 
+    <h1  class="m-2 font-weight-bold; text-center " >{{!showMe ? "":"Registro de Menu"}}</h1>
+  </div>
+
+  
  
  <div class="modal fade" id="change-modo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -18,16 +22,42 @@
       </div>
       <div class="modal-body">
         <div class="titulo">
-          <form id="add-form2" (ngSubmit)="pass.form.valid " #pass="ngForm" novalidate>
-            <label for="Password">Coloque su contraseña:</label>
-            <input type="password" name="password" id="password"  ([ngModel])="password" >
+
+         
+          <form id="dados" onsubmit="clave()" >
+            <div class="form-group">
+               <label for="password">Coloque su password:</label>
+               <input type="password" class="form-control" placeholder="password" name="password" id="password" [(ngModel)]="password"/>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary m-2" data-bs-dismiss="modal" (click)="clave()"  >Confirmar</button>
+               <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Salir</button> 
+
+
+            </div>
+            </form>
+
+
+
+
+
+
+
+
+
+              <!-- 
+
+
+           <form id="add-form2" #pass="ngForm"  novalidate >
+            <label for="password">Coloque su contraseña:</label>
+            <input type="text" name="password" id="password" class="form-control" placeholder="password" ([ngModel])="password" >
             <div class="form-group">               
-              <button type="submit" class="btn btn-primary"    (click)="hidden()">Confirmar</button>
+              <button type="submit" class="btn btn-primary"  (click)="hidden()"  >Confirmar</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>  
             </div>
 
 
-          </form>
+          </form> -->
           
           <!-- <form id="add-form" (ngSubmit)=".form.valid && saveItem(f)" #pass="ngForm" novalidate>
             <div class="form-group">
@@ -67,19 +97,44 @@
  <div *ngIf=!showMe>
   <div class = "" id="carta1">
      
-        <h2 class="p-3 m-2">Carta de menu</h2>
-        <div>
-            <label for="">Tipos de comida:</label>
-            <button type="button" class="btn btn-info m-1" (click)="todas()">Todas</button> 
-            <button type="button" class="btn btn-success  m-1"(click)="carne()">Vegetariana</button> 
+        
+        <div lass="text-center">
+            <h3 class="text-center m-3 p -3 ">Tipos de comida:</h3>
+        <br>
+        </div>
+        
+        <div class=" col m-0 text-center align-items-center">
+            <button type="button" id="xx3" class="btn btn-info m-1 " (click)="todas()">Todas</button> 
+            <button type="button" class="btn btn-success  m-1 "(click)="carne()">Vegetariana</button> 
             <button type="button" class="btn btn-warning m-1"(click)="verde()">Normal</button> 
             
     
         </div>
 
+        <aside class=" m-3 d-flex-col card  w-10" style="width: 10rem;" id="aside">
+          <div class="card-body">
+          <div class="panel panel-primary">
+          <div id="divTotal" class="panel-heading">
+              <h3 p-2 class="panel-title card text-center">Total</h3>
+          </div>
+          <div class="panel-body">
+              <h2 class="card text-center">Rs. 0</h2>
+          </div>
+      </div>
+       
+      <div class="text-center">
+          <a href="#/checkout" class="btn btn-danger">Checkout <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+          </a>
+      </div>
+
+
         <div>
-            <button type="button" class="btn btn-danger m-2 float-start" style="position: absolute; z-index: 999;">Finalizar pedido</button> 
+            <button type="button" class="btn btn-danger m-2 float-start" style="position: absolute; z-index: 999;">Cancelar</button> 
         </div>
+        </div>
+      </aside>
+        
+
 
         <div class="container d-md-flex p-3">
         <div class=" d-md-flex p-3  bd-highlight justify-content-between " *ngFor="let item of items.items ">
@@ -93,14 +148,18 @@
                   <p class="card-text">{{ item.DESCRIPCION }}</p>
                   <p class="card-text"><b>{{ item.PRECIO | currency:'BRL' }}</b></p>
                   
-                  <form>
+
+
+
+                  
+                  <form id="costos" onsubmit="sumatoria()">
                     <div class="mb-3">
                       
                     <div class="mb-3 form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                      <input type="checkbox" class="form-check-input"  value="{{ item.PRECIO }}" name="checkbox" id="checkbox">
+                      <label class="form-check-label" for="checkbox + {{item.id}}" >Select me!! </label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    
                    </div>
                   </form>
                 </div>
@@ -120,10 +179,10 @@
                   <div class="mb-3">
                     
                   <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    <input type="checkbox" class="form-check-input" value="{{ item.PRECIO }}"  id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1" >Select Me!!</label>
                   </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                
                  </div>
                 </form>
               </div>
@@ -143,9 +202,9 @@
                   
                 <div class="mb-3 form-check">
                   <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                  <label class="form-check-label" for="exampleCheck1">Select Me!!</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+               
                </div>
               </form>
             </div>

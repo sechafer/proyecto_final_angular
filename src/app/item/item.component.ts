@@ -12,18 +12,21 @@ import { Action } from 'rxjs/internal/scheduler/Action';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
+  public password: string = '';
+  
+  super: any = {};
    showMe:boolean= false;
   normal:boolean= true;
   vegetariana:boolean= true;
   completa:boolean= true;
   item = {} as Item1;
-  public password: string | undefined;
   //items: Item1[];
   
  items:any = {};
 //data: any = [];
 //myObjList: any = [];
   items2: any = {};
+  event: string = '';
 
   constructor(private itemService: ConexionService ) {}
 
@@ -34,15 +37,29 @@ export class ItemComponent implements OnInit {
    // this.getItems2();
   }
 
-  hidden()
+  clave()
   {
-    if (this.password === 'batata'){
+    if (this.password == 'batata'){
       this.showMe=!this.showMe;
+      this.password ='';
     }
     else
     this.showMe=!!this.showMe;
+    this.password ='';
    
   }
+
+
+
+
+
+
+
+
+
+
+
+
 
 carne()
 {
