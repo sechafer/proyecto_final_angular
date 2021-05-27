@@ -1,26 +1,26 @@
-<div class=" p-2 m-2 alin"> 
-  <button id="btn"class="  btn btn-secondary btn-block btn-sm"  data-bs-toggle="modal" data-bs-target="#change-modo" >{{!showMe ? "Admin":"Menu"}}</button>
+<div class=" p-2 m-2 alin" style="width:250vw; height:auto;" > 
+  <button id="btn"class="  btn btn-secondary btn-block btn-sm" style="font-size: largercd a;" data-bs-toggle="modal" data-bs-target="#change-modo" >{{!showMe ? "֍":"Menu"}}</button>
 </div>
 
   
   <div class="align-items-center">
     <div class="text-center" >
-      <img class="rounded"  style="width: 220px; height:150px ; " src="../../assets/menu.jpg" alt="menu">
+      <img class="rounded"  style="width: 300px; height:150px ; " src="../../assets/menu.jpg" alt="menu">
     </div>
 
-    <h1  class="m-2 font-weight-bold; text-center " >{{!showMe ? "":"Registro de Menu"}}</h1>
+    <h1  class="m-2 font-weight-bold; text-center " style="color: blanchedalmond;" >{{!showMe ? "":"Registro de Menu"}}</h1>
   </div>
 
   
  
- <div class="modal fade" id="change-modo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" style="background-color: rgba(216, 172, 90, 0.5)"  id="change-modo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Cambiar vista: {{!showMe ? "Administrador":"Menu"}}   </h5>
+      <div class="modal-header" style="background-color: rgba(216, 172, 90, 0.5)" >
+        <h5 class="modal-title" id="exampleModalLabel">Cambiar vista: {{!showMe ? "Adminiistrador":"Menu"}}   </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="background-color: rgba(216, 172, 90, 0.5)">
         <div class="titulo">
 
          
@@ -30,8 +30,8 @@
                <input type="password" class="form-control" placeholder="password" name="password" id="password" [(ngModel)]="password"/>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary m-2" data-bs-dismiss="modal" (click)="clave()"  >Confirmar</button>
-               <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Salir</button> 
+              <button type="submit" class="btn btn-primary m-2" style="background-color: rgb(185, 230, 38); border-color: chocolate; color: black; " data-bs-dismiss="modal" (click)="clave()"  >Confirmar</button>
+               <button type="button" class="btn btn-warning" style="background-color: rgb(179, 117, 37); border-color: chocolate; color: black;" data-bs-dismiss="modal">Salir</button> 
 
 
             </div>
@@ -99,29 +99,29 @@
      
         
         <div lass="text-center">
-            <h3 class="text-center m-3 p -3 ">Tipos de comida:</h3>
+            <h3 class="text-center m-3 p -3 " style="color: blanchedalmond;">Tipos de comida:</h3>
         <br>
         </div>
         
         <div class=" col m-0 text-center align-items-center">
-            <button type="button" id="xx3" class="btn btn-info m-1 " (click)="todas()">Todas</button> 
-            <button type="button" class="btn btn-success  m-1 "(click)="carne()">Vegetariana</button> 
+            <button type="button" id="xx3" class="btn btn-info m-1 " style="background-color: rgb(223, 238, 172); border-color: chocolate; color: black; "  (click)="todas()">Todas</button> 
+            <button type="button" class="btn btn-success  m-1 " style="background-color: rgb(185, 230, 38); border-color: chocolate; color: black; " (click)="carne()">Vegetariana</button> 
             <button type="button" class="btn btn-warning m-1"(click)="verde()">Normal</button> 
             
     
         </div>
 
-        <aside class=" m-3 d-flex-col card  w-10" style="width: 10rem;" id="aside">
+        <!-- aside class=" m-3 d-flex-col card" style="width: 10rem;" id="aside">
           <div class="card-body">
-          <div class="panel panel-primary">
-          <div id="divTotal" class="panel-heading">
-              <h3 p-2 class="panel-title card text-center">Total</h3>
-          </div>
-          <div class="panel-body">
-              <h2 class="card text-center">Rs. 0</h2>
-          </div>
-      </div>
-       
+              <div class="panel panel-primary">
+                  <div id="divTotal" class="panel-heading">
+                      <h3 p-2 class="panel-title card text-center">Total</h3>
+                  </div>
+                  <div class="panel-body">
+                      <h2 class="card text-center">Rs. 0</h2>
+                  </div>
+              </div>
+          
       <div class="text-center">
           <a href="#/checkout" class="btn btn-danger">Checkout <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
           </a>
@@ -129,20 +129,23 @@
 
 
         <div>
-            <button type="button" class="btn btn-danger m-2 float-start" style="position: absolute; z-index: 999;">Cancelar</button> 
+            <button type="button" class="btn btn-danger m-2 ">Cancelar</button> 
         </div>
         </div>
       </aside>
-        
+         -->
 
 
-        <div class="container d-md-flex p-3">
-        <div class=" d-md-flex p-3  bd-highlight justify-content-between " *ngFor="let item of items.items ">
-            <article *ngIf="(normal && item.TIPO_COMIDA)" class="  shadow border-dark rounded-3 p-3 m-2 " >
+        <div class="container d-sm-flex p-3 align-self"  >
+        <div id="superdiv" class=" d-flex  bd-highlight justify-content-between "  *ngFor="let item of items.items ">
+          
+          <article *ngIf="(normal && item.TIPO_COMIDA)" class="  shadow border-dark rounded-3 p-3 m-2 " style="opacity: 0.85;" >
             
             
-              <div class="card" style="width: 18rem;">
-                <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
+              <div class="card" style="width: 18rem; " >
+                <div class="text-center p-2">
+                <img src="{{item.FOTO_URL}}"  class="img-rounded" width="250" height="150" alt="{{ item.ITEM_NAME }}">
+              </div>
                 <div class="card-body">
                   <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
                   <p class="card-text">{{ item.DESCRIPCION }}</p>
@@ -167,10 +170,12 @@
           </article>  
 
               
-            <article *ngIf="vegetariana && !item.TIPO_COMIDA" class=" shadow border-dark rounded-3 p-3 m-2 " >
+            <article *ngIf="vegetariana && !item.TIPO_COMIDA" class=" shadow border-dark rounded-3 p-3 m-2 " style="opacity: 0.85;" >
             
             <div class="card" style="width: 18rem;">
-              <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
+              <div class="text-center p-2">
+              <img src="{{item.FOTO_URL}}"  class="img-rounded"  width="250" height="150"  alt="{{ item.ITEM_NAME }}">
+               </div>
               <div class="card-body">
                 <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
                 <p class="card-text">{{ item.DESCRIPCION }}</p>
@@ -189,10 +194,12 @@
           </div>
         </article>  
 
-        <article *ngIf=" completa && (( normal && item.TIPO_COMIDA ) && (vegetariana && !item.TIPO_COMIDA))" class="  shadow border-dark rounded-3 p-3 m-2 " >
+        <article *ngIf=" completa && (( normal && item.TIPO_COMIDA ) && (vegetariana && !item.TIPO_COMIDA))" class="  shadow border-dark rounded-3 p-3 m-2 " style="opacity: 0.85;" >
            
           <div class="card" style="width: 18rem;">
-            <img src="{{item.FOTO_URL}}"  class="card-img-top" alt="{{ item.ITEM_NAME }}">
+            <div class="text-center p-2">
+            <img src="{{item.FOTO_URL}}"  class="img-rounded" width="250" height="150"  alt="{{ item.ITEM_NAME }}">
+            </div>
             <div class="card-body">
               <h4 class="card-title">{{ item.ITEM_NAME }}</h4>
               <p class="card-text">{{ item.DESCRIPCION }}</p>
@@ -215,7 +222,7 @@
 
 
             </article>  
-
+     
 
         </div>
 
@@ -242,14 +249,14 @@
   </div>
 
     <!-- Modal -->
-   <div class="modal fade" id="plato-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal fade" style="background-color: rgba(216, 172, 90, 0.5)" id="plato-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header" style="background-color: rgba(216, 172, 90, 0.5)" >
             <h5 class="modal-title" id="exampleModalLabel">Creacion de nuevo plato</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body"style="background-color: rgba(216, 172, 90, 0.5)"  >
             <div class="titulo">
               
               <form id="add-form" (ngSubmit)="f.form.valid && saveItem(f)" #f="ngForm" novalidate>
@@ -303,9 +310,9 @@
 
                         
               <div class="form-group">               
-                <button type="submit" class="btn btn-primary btn-add-car">Salvar</button>
+                <button type="submit" class="btn btn-primary btn-add-car" style="background-color: rgb(185, 230, 38); border-color: chocolate; color: black; " >Salvar</button>
                 <button type="reset" class="btn btn-warning btn-add-car" (click)="cleanForm(f)">Limpiar</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  
+                <button type="button" class="btn btn-secondary" style="background-color: rgb(179, 117, 37); border-color: chocolate; color: black;" data-bs-dismiss="modal">Close</button>  
               </div>
               </form>
 
@@ -313,7 +320,7 @@
 
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer" style="background-color: rgba(216, 172, 90, 0.5)">
             
             
           </div>
@@ -424,7 +431,7 @@
                             <div class="card list-car">
                             <h5 class="card-header">Lista de platos</h5>
                             <div class="card-body">
-                              <table class="table">
+                              <table class="table table-striped align-middle">
                                   <thead>
                                     <tr>
                                       <th scope="col">ID</th>

@@ -23,24 +23,9 @@
     position: fixed;
 }
 
-#Repositorios{
-	
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
-	padding: 10px;
+
+#superdiv:nth-child(5n) article {
+
+    flex-basis: 100%;
+    height: 0;
 }
-
-
- #Repositorios article {
-  display:flexbox;
-   background-color: white;
-  color: #434343;
-  border: 1px solid rgb(7, 7, 7);
-  margin:30px 15px 30px 15px;
-  width: 300px;
-  text-align: center;
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 5px 5px 5px 3px rgba(0, 0, 0, 0.2);
-}  
