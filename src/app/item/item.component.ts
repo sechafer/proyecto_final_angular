@@ -39,7 +39,7 @@ export class ItemComponent implements OnInit {
 
   clave()
   {
-    if (this.password == 'batata'){
+    if (this.password == 'goku'){
       this.showMe=!this.showMe;
       this.password ='';
     }
