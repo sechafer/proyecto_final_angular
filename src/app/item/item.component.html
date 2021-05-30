@@ -1,4 +1,4 @@
-<div class=" p-2 m-2 alin" style="width:250vw; height:auto;" > 
+<div class=" p-2 m-2 alin"  > 
   <button id="btn"class="  btn btn-secondary btn-block btn-sm" style="font-size: largercd a;" data-bs-toggle="modal" data-bs-target="#change-modo" >{{!showMe ? "֍":"Menu"}}</button>
 </div>
 
@@ -136,13 +136,13 @@
          -->
 
 
-        <div class="container d-sm-flex p-3 align-self"  >
-        <div id="superdiv" class=" d-flex  bd-highlight justify-content-between "  *ngFor="let item of items.items ">
+        <div class="container  d-flex flex-wrap p-3 align-self"  >
+        <div id="superdiv" class=" d-flex flex-wrap  bd-highlight justify-content-between " style=""  *ngFor="let item of items.items ">
           
           <article *ngIf="(normal && item.TIPO_COMIDA)" class="  shadow border-dark rounded-3 p-3 m-2 " style="opacity: 0.85;" >
             
             
-              <div class="card" style="width: 18rem; " >
+              <div class="card" style="width: 18rem; height: 25rem; " >
                 <div class="text-center p-2">
                 <img src="{{item.FOTO_URL}}"  class="img-rounded" width="250" height="150" alt="{{ item.ITEM_NAME }}">
               </div>
