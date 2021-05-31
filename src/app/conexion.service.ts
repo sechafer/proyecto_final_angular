@@ -10,7 +10,7 @@ import { Item1 } from '../app/models/item';
 })
 export class ConexionService {
 
-url = 'http://localhost:5000/items'; // direccion api rest del node
+url = 'http://sechafer.ddns.net:5000/items'; // direccion api rest del node
 
 constructor(private httpClient: HttpClient) { }
 
