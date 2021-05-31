@@ -142,7 +142,7 @@
           <article *ngIf="(normal && item.TIPO_COMIDA)" class="  shadow border-dark rounded-3 p-3 m-2 " style="opacity: 0.85;" >
             
             
-              <div class="card" style="width: 18rem; height: 25rem; " >
+              <div class="card" style="width: 18rem; height: 28rem;" >
                 <div class="text-center p-2">
                 <img src="{{item.FOTO_URL}}"  class="img-rounded" width="250" height="150" alt="{{ item.ITEM_NAME }}">
               </div>
@@ -172,7 +172,7 @@
               
             <article *ngIf="vegetariana && !item.TIPO_COMIDA" class=" shadow border-dark rounded-3 p-3 m-2 " style="opacity: 0.85;" >
             
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 18rem; height: 28rem;">
               <div class="text-center p-2">
               <img src="{{item.FOTO_URL}}"  class="img-rounded"  width="250" height="150"  alt="{{ item.ITEM_NAME }}">
                </div>
@@ -196,7 +196,7 @@
 
         <article *ngIf=" completa && (( normal && item.TIPO_COMIDA ) && (vegetariana && !item.TIPO_COMIDA))" class="  shadow border-dark rounded-3 p-3 m-2 " style="opacity: 0.85;" >
            
-          <div class="card" style="width: 18rem;">
+          <div class="card" style="width: 18rem; height: 28rem;">
             <div class="text-center p-2">
             <img src="{{item.FOTO_URL}}"  class="img-rounded" width="250" height="150"  alt="{{ item.ITEM_NAME }}">
             </div>
